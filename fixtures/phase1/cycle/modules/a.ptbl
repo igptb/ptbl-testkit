@@ -1,0 +1,4 @@
+﻿module_id: a
+imports:
+  - source: local
+    path: modules/b.ptbl
