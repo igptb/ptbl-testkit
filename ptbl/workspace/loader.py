@@ -57,24 +57,48 @@ def _sorted_glob(dir_path: Path, pattern: str) -> List[Path]:
     return sorted([p for p in dir_path.glob(pattern) if p.is_file()], key=lambda p: str(p).lower())
 
 
-def _validate_local_relpath(rel_path: str) -> None:
-    p = Path(rel_path)
+def _validate_local_relpath(workspace_root: Path, rel_path: str) -> str:
+    """
+    Phase 1 security: reject any path that can escape the workspace root.
+    Must work on both Windows and Linux runners (CI).
+    Returns a normalized path string using forward slashes.
+    """
+    import re
 
-    # Reject absolute paths (C:\..., \\server\share\..., /etc/...)
-    if p.is_absolute():
-        raise ResolverError(RESOLVE_PATH_TRAVERSAL, f"Absolute local import path not allowed: {rel_path}")
+    if not isinstance(rel_path, str) or not rel_path.strip():
+        raise ValueError("local import path must be a non-empty string")
 
-    # Reject any '..' segment (basic traversal). Resolver will still do the full root containment check later.
-    parts = p.parts
-    if any(part == ".." for part in parts):
-        raise ResolverError(RESOLVE_PATH_TRAVERSAL, f"Path traversal segment '..' not allowed: {rel_path}")
+    raw = rel_path.strip()
 
-    # Reject empty or weird paths
-    if rel_path.strip() == "":
-        raise ResolverError(RESOLVE_PATH_TRAVERSAL, "Empty local import path not allowed")
+    # Reject Windows drive paths and UNC paths even on Linux CI.
+    # Examples: C:\Windows\..., C:/Windows/..., \\server\share\...
+    if re.match(r"^[A-Za-z]:[\\/]", raw) or raw.startswith("\\\\"):
+        raise ResolverError(RESOLVE_PATH_TRAVERSAL, f"Absolute/UNC path not allowed: {rel_path}")
+
+    # Normalize Windows separators so CI (Linux) sees traversal too.
+    norm = raw.replace("\\", "/")
+
+    # Reject absolute posix paths
+    if norm.startswith("/"):
+        raise ResolverError(RESOLVE_PATH_TRAVERSAL, f"Absolute path not allowed: {rel_path}")
+
+    # Reject any '..' segment explicitly (works cross-platform)
+    parts = [p for p in norm.split("/") if p not in ("", ".")]
+    if ".." in parts:
+        raise ResolverError(RESOLVE_PATH_TRAVERSAL, f"Path traversal detected: {rel_path}")
+
+    # Final safety: resolved path must still be within workspace_root
+    abs_path = (workspace_root / norm).resolve()
+    root = workspace_root.resolve()
+    try:
+        abs_path.relative_to(root)
+    except ValueError:
+        raise ResolverError(RESOLVE_PATH_TRAVERSAL, f"Path escapes workspace root: {rel_path}")
+
+    return norm
 
 
-def _parse_import(obj: Any) -> ImportSpec:
+def _parse_import(obj: Any, workspace_root: Path) -> ImportSpec:
     if not isinstance(obj, dict):
         raise ValueError("import entry must be a mapping")
 
@@ -89,8 +113,8 @@ def _parse_import(obj: Any) -> ImportSpec:
         if not isinstance(path, str) or not path:
             raise ValueError("local import requires non-empty string 'path'")
 
-        _validate_local_relpath(path)
-        return ImportSpec(source=source, path=path, raw=raw)
+        safe_path = _validate_local_relpath(workspace_root, path)
+        return ImportSpec(source=source, path=safe_path, raw=raw)
 
     if source == "registry":
         name = obj.get("name")
@@ -122,7 +146,7 @@ def _parse_import(obj: Any) -> ImportSpec:
     raise ValueError("unreachable")
 
 
-def _parse_module(path: Path) -> ModuleSpec:
+def _parse_module(path: Path, workspace_root: Path) -> ModuleSpec:
     data = _read_yaml(path)
 
     module_id = data.get("module_id")
@@ -137,7 +161,7 @@ def _parse_module(path: Path) -> ModuleSpec:
 
     imports: List[ImportSpec] = []
     for item in imports_raw:
-        imports.append(_parse_import(item))
+        imports.append(_parse_import(item, workspace_root))
 
     # Deterministic order inside module spec
     imports_sorted = sorted(
@@ -172,7 +196,7 @@ def load_workspace(root: str | Path) -> Workspace:
 
     modules: Dict[str, ModuleSpec] = {}
     for p in module_paths:
-        spec = _parse_module(p)
+        spec = _parse_module(p, root_path)
         if spec.module_id in modules:
             raise ValueError(f"Duplicate module_id '{spec.module_id}' in {p}")
         modules[spec.module_id] = spec
