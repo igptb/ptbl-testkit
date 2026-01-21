@@ -1,0 +1,5 @@
+﻿module_id: b
+imports:
+  - source: registry
+    name: pkgX
+    version: "2.0"

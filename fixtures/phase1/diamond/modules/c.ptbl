@@ -1,0 +1,4 @@
+﻿module_id: c
+imports:
+  - source: local
+    path: modules/d.ptbl

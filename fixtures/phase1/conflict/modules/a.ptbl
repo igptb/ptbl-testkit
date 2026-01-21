@@ -1,0 +1,5 @@
+﻿module_id: a
+imports:
+  - source: registry
+    name: pkgX
+    version: "1.0"
