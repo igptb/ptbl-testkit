@@ -6,3 +6,7 @@ artifacts/
 *.egg-info/
 dist/
 build/
+
+# Local scratch / backups
+ptbl/workspace/loader - old.py
+
