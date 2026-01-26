@@ -2,25 +2,23 @@
 
 Last updated: 2026-01-24
 
-Scope: This repository stores the living Markdown docs that preserve context for humans and LLMs. It does NOT contain the validator code itself unless you choose to co-locate it later.
+Scope: This folder stores the living Markdown docs that preserve context for humans and LLMs. It does NOT contain the validator code itself. Living docs are updated in small, reviewable commits.
 
 ## If you only read one thing
-- Start here: docs/01_ROUTING_GUIDE.md
-- All living docs live in docs/ (flat). Root is for README, CHANGELOG, TASKS only.
+- Start here: `docs/01_ROUTING_GUIDE.md`
+- Always-current snapshot: `docs/00_STATUS.md`
+- TestKit front door: `docs/02_TESTKIT_EXECUTION_ORDER.md`
 - Every doc starts with the standard header block and an append-only Update log.
-- Edit docs in small commits. Keep links stable.
 
 ## Update log
-- 2026-01-24: Created skeleton.
-
+- 2026-01-24: Refreshed Task 1 outputs and added Phase 4 batch tracking pointers to the TestKit front door.
 
 ## Repo map
-- docs/: living docs
-- exports/docx/: original DOCX sources (kept for reference)
-- templates/: copy-paste templates and helper scripts
-
+- `docs/`: living docs (canonical)
+- `exports/docx/`: source DOCX exports (reference only)
+- `templates/`: copy-paste templates and helper scripts
 
 ## Conventions
-- File names are numbered for stable navigation.
+- Numbered filenames are for stable navigation.
 - Use relative links.
-- Avoid huge single files. Prefer a short front door plus linked specs.
+- Keep docs short and link outward. Avoid giant all-in-one files.
