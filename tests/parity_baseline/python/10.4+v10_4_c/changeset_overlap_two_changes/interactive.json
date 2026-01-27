@@ -1,0 +1,56 @@
+{
+  "counts": {
+    "error": 3,
+    "info": 0,
+    "warning": 0
+  },
+  "diagnostics": [
+    {
+      "file": "changeset.yaml",
+      "fix_hint": null,
+      "message": "'cs_overlap_two_changes' does not match '^cs-[a-z0-9]{8,}$'",
+      "path": "/id",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "module.yaml",
+      "fix_hint": null,
+      "message": "Additional properties are not allowed ('entities' was unexpected)",
+      "path": "/module",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "changeset.yaml",
+      "fix_hint": null,
+      "message": "Overlapping changeset operation: file 'module.yaml', element_uid 'target_entity_user', pointer '/fields/email/required' is targeted more than once.",
+      "path": "/changes/1/operations/0/pointer",
+      "rule_id": "SEM_CHANGESET_OVERLAPPING_OPS",
+      "severity": "error",
+      "tier": "semantic"
+    }
+  ],
+  "fix_actions": [],
+  "max_diagnostics": 200,
+  "mode": "interactive",
+  "ok": false,
+  "ptbl_version_detected": "2.6.19",
+  "summary": {
+    "by_severity": {
+      "error": 3,
+      "info": 0,
+      "warning": 0
+    },
+    "by_tier": {
+      "policy": 0,
+      "schema": 2,
+      "semantic": 1
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

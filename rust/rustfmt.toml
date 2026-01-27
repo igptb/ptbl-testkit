@@ -1,0 +1,4 @@
+# Keep formatting deterministic across machines.
+edition = "2021"
+max_width = 100
+newline_style = "Unix"

@@ -1,0 +1,14 @@
+# LLM Mistake: Entity ref using dotted path instead of UID
+ptbl: '2.6.19'
+module:
+  name: test
+  version: 1.0.0
+  uid: test_module_root
+
+entities:
+  test_entity_order:
+    fields:
+      customer:
+        type:
+          type: reference
+          entity_ref: users.customer

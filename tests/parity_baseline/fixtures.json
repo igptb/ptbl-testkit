@@ -1,0 +1,97 @@
+{
+  "fixtures": [
+    {
+      "content_sha256": "709251ac68fdc0de21f741b4abc1e206d2cd06e990be25c570eb144ed1deeb59",
+      "fixture_root": "tests/fixtures/negative/schema_invalid",
+      "id": "neg_schema_invalid",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "238e9729bfbcbf43a8fe9b4c7a897ad42ab157208c30ff0ce86cb999fc812266",
+      "fixture_root": "tests/fixtures/negative/duplicate_uid",
+      "id": "neg_duplicate_uid",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "1c1d8d6c0ea136d3ea36522ec5199e4294366e45f3927c54091c2c53d6a3aa0e",
+      "fixture_root": "tests/fixtures/negative/import_cycle",
+      "id": "neg_import_cycle",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "f0e5878eeaecf4ab5413c45da5cadbd9d577d6a967f32c22874396b388263050",
+      "fixture_root": "tests/fixtures/negative/enum_ref_missing",
+      "id": "neg_enum_ref_missing",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "9959e160efd8012ec2811fd07bbdec5be61e0f2864fd5c9c7475f9efdc858f70",
+      "fixture_root": "tests/fixtures/negative/yaml_multi_doc",
+      "id": "neg_yaml_multi_doc",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "dddd73bc73cf4eaa4e81830a97b1c48e0e9c3e3f00c6dd1eb02258ebdf75de98",
+      "fixture_root": "tests/fixtures/yaml_hostile/alias_bomb",
+      "id": "yaml_hostile_alias_bomb",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "1ebcb5707416f282e14fd17317ae50116d084654b4399c52a4bdfee37ef958a9",
+      "fixture_root": "tests/fixtures/negative/ambiguous_document",
+      "id": "neg_ambiguous_document",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "2d45d6ee0580500260d08f5bb3dacce9331b4f4c69aed6fab568f8ddc2d4a4a7",
+      "fixture_root": "tests/fixtures/changeset/overlap/duplicate_across_two_changes_same_file",
+      "id": "changeset_overlap_two_changes",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "6c1e14c1c527940b32c5055d1734b0871bf52e1dd43152093be15756cbdb0d86",
+      "fixture_root": "tests/fixtures/negative/policy/lock/git_missing_commit",
+      "id": "policy_git_missing_commit",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    },
+    {
+      "content_sha256": "e3d1f0fb8339bf91f70327fc27c2570c8b9c855206187d21fe986f66896185c8",
+      "fixture_root": "tests/fixtures/llm_near_miss/stringly_refs/entity_ref_dotted_path",
+      "id": "near_miss_entity_ref_dotted_path",
+      "modes": [
+        "interactive",
+        "commit"
+      ]
+    }
+  ],
+  "generated_on": "2026-01-27",
+  "note": "workspace_fingerprint normalized to __FINGERPRINT__",
+  "validator_version": "10.4+v10_4_c"
+}

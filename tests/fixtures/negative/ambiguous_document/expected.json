@@ -1,0 +1,7 @@
+{
+  "mode": "interactive",
+  "ok": false,
+  "must_contain": [
+    {"rule_id": "SCHEMA_KIND_AMBIGUOUS", "file": "amb.yaml"}
+  ]
+}

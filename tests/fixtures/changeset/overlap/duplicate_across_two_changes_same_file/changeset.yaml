@@ -1,0 +1,19 @@
+ptbl_changeset: '2.6.19'
+id: cs_overlap_two_changes
+created_at: '2026-01-23T00:00:00Z'
+status: draft
+changes:
+  - file: module.yaml
+    file_uid: target_module_root
+    operations:
+      - element_uid: target_entity_user
+        op: replace
+        pointer: /fields/email/required
+        value: true
+  - file: module.yaml
+    file_uid: target_module_root
+    operations:
+      - element_uid: target_entity_user
+        op: replace
+        pointer: /fields/email/required
+        value: false

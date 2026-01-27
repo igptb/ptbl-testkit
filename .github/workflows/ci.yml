@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
-
-permissions:
-  contents: read
+  workflow_dispatch:
 
 jobs:
   python-parity-smoke:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,47 +21,38 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: |
-            pyproject.toml
-            requirements.txt
-            requirements-dev.txt
             requirements-ci.txt
-            setup.cfg
 
-      - name: Install dependencies
+      - name: Install dependencies (strict)
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
 
-          # Prefer CI or base deps. Avoid dev deps in CI unless you explicitly want them.
-          if [ -f requirements-ci.txt ]; then
-            python -m pip install -r requirements-ci.txt
-          elif [ -f requirements.txt ]; then
-            python -m pip install -r requirements.txt
-          elif [ -f pyproject.toml ]; then
-            python -m pip install -e ".[dev]" || python -m pip install -e .
+          if [ ! -f requirements-ci.txt ]; then
+            echo "ERROR: requirements-ci.txt missing. Generate it (pinned) and commit it." >&2
+            exit 1
           fi
 
-          # Always ensure the test runner (and common core deps) exist in CI.
-          python -m pip install pytest pyyaml jsonschema
+          python -m pip install -r requirements-ci.txt
+          python -m pip check
 
       - name: Run parity harness smoke
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f tests/test_parity_harness_smoke.py ]; then
-            python -m pytest -q tests/test_parity_harness_smoke.py
-          elif [ -f tests/test_parity_smoke.py ]; then
-            python -m pytest -q tests/test_parity_smoke.py
-          else
-            # Fallback: run any test that looks like the parity smoke subset.
-            python -m pytest -q -k "parity and smoke"
+
+          if [ ! -f tests/test_parity_harness_smoke.py ]; then
+            echo "ERROR: tests/test_parity_harness_smoke.py not found." >&2
+            exit 1
           fi
+
+          python -m pytest -q tests/test_parity_harness_smoke.py
 
   rust:
     runs-on: ubuntu-latest
-    env:
-      RUST_BACKTRACE: "1"
+    timeout-minutes: 20
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -71,31 +62,85 @@ jobs:
         with:
           components: rustfmt, clippy
 
+      - name: Locate Cargo.toml
+        id: cargo
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          manifest=""
+
+          # Preferred layout during migration
+          if [ -f rust/Cargo.toml ]; then
+            manifest="rust/Cargo.toml"
+          else
+            # If rust/ exists, search inside it first
+            if [ -d rust ]; then
+              candidates="$(find rust -maxdepth 4 -name Cargo.toml -not -path '*/target/*' -print || true)"
+              count="$(printf "%s\n" "$candidates" | sed '/^$/d' | wc -l | tr -d ' ')"
+              if [ "$count" -eq 1 ]; then
+                manifest="$(printf "%s\n" "$candidates" | head -n 1)"
+              elif [ "$count" -gt 1 ]; then
+                echo "ERROR: Multiple Cargo.toml files found under rust/. Make this unambiguous." >&2
+                echo "$candidates" >&2
+                exit 1
+              fi
+            fi
+
+            # Fallback: workspace at repo root
+            if [ -z "$manifest" ] && [ -f Cargo.toml ]; then
+              manifest="Cargo.toml"
+            fi
+          fi
+
+          # Final fallback: find a single Cargo.toml near the root
+          if [ -z "$manifest" ]; then
+            candidates="$(find . -maxdepth 3 -name Cargo.toml -not -path '*/target/*' -print || true)"
+            count="$(printf "%s\n" "$candidates" | sed '/^$/d' | wc -l | tr -d ' ')"
+            if [ "$count" -eq 1 ]; then
+              manifest="$(printf "%s\n" "$candidates" | head -n 1)"
+              manifest="${manifest#./}"
+            elif [ "$count" -gt 1 ]; then
+              echo "ERROR: Multiple Cargo.toml files found near repo root. Make this unambiguous." >&2
+              echo "$candidates" >&2
+              exit 1
+            fi
+          fi
+
+          if [ -z "$manifest" ]; then
+            echo "ERROR: Could not find Cargo.toml. Expected rust/Cargo.toml, a single Cargo.toml under rust/, or Cargo.toml at repo root." >&2
+            exit 1
+          fi
+
+          manifest="${manifest#./}"
+          workspace_dir="$(dirname "$manifest")"
+          if [ "$workspace_dir" = "." ]; then
+            workspace_dir="."
+          fi
+
+          echo "manifest=$manifest" >> "$GITHUB_OUTPUT"
+          echo "workspace_dir=$workspace_dir" >> "$GITHUB_OUTPUT"
+
       - name: Rust cache
         uses: Swatinem/rust-cache@v2
         with:
-          # Most repos place the workspace in ./rust during this migration.
-          # If your workspace is at repo root, this still works.
           workspaces: |
-            rust -> target
+            ${{ steps.cargo.outputs.workspace_dir }} -> target
 
       - name: Cargo fmt (check)
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f rust/Cargo.toml ]; then cd rust; fi
-          cargo fmt --all -- --check
+          cargo fmt --manifest-path "${{ steps.cargo.outputs.manifest }}" --all -- --check
 
       - name: Cargo clippy (-D warnings)
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f rust/Cargo.toml ]; then cd rust; fi
-          cargo clippy --all-targets --all-features -- -D warnings
+          cargo clippy --manifest-path "${{ steps.cargo.outputs.manifest }}" --all-targets --all-features -- -D warnings
 
       - name: Cargo test
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f rust/Cargo.toml ]; then cd rust; fi
-          cargo test --all --all-features
+          cargo test --manifest-path "${{ steps.cargo.outputs.manifest }}" --all --all-features

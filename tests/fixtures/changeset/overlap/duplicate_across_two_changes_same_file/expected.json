@@ -1,0 +1,7 @@
+{
+  "mode": "interactive",
+  "ok": false,
+  "must_contain": [
+    {"rule_id": "SEM_CHANGESET_OVERLAPPING_OPS", "tier": "semantic", "file": "changeset.yaml", "path": "/changes/1/operations/0/pointer"}
+  ]
+}

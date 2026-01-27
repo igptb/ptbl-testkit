@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "error": 1,
+    "info": 0,
+    "warning": 0
+  },
+  "diagnostics": [
+    {
+      "file": "multi.yaml",
+      "fix_hint": null,
+      "message": "File contains 2 YAML documents (only first processed)",
+      "path": "",
+      "rule_id": "SEM_YAML_MULTI_DOCUMENT",
+      "severity": "error",
+      "tier": "semantic"
+    }
+  ],
+  "fix_actions": [],
+  "max_diagnostics": 200,
+  "mode": "interactive",
+  "ok": false,
+  "ptbl_version_detected": "2.6.19",
+  "summary": {
+    "by_severity": {
+      "error": 1,
+      "info": 0,
+      "warning": 0
+    },
+    "by_tier": {
+      "policy": 0,
+      "schema": 0,
+      "semantic": 1
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

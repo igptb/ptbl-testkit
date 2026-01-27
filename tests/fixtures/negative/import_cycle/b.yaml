@@ -1,0 +1,8 @@
+ptbl: '2.6.19'
+module:
+  name: bmod
+  version: 1.0.0
+  uid: bmod_module_root
+imports:
+  - ref: './a.yaml'
+    alias: a

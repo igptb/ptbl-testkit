@@ -1,0 +1,12 @@
+ptbl: '2.6.19'
+module:
+  name: enum_missing
+  version: 0.0.1
+  uid: enum_missing_module_root
+entities:
+  enum_missing_entity_item:
+    fields:
+      status:
+        type:
+          type: enum
+          enum_ref: missing_enum_uid

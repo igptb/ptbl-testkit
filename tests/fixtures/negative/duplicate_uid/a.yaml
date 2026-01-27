@@ -1,0 +1,11 @@
+# Module A with entity using StableUID key
+ptbl: '2.6.19'
+module:
+  name: moda
+  version: 0.0.1
+  uid: moda_module_root
+entities:
+  moda_entity_user:
+    fields:
+      name:
+        type: string

@@ -1,0 +1,10 @@
+ptbl_lock: "2.6.19"
+generated_at: "2026-01-23T00:00:00Z"
+app:
+  uid: app_app_root
+resolved:
+  auth:
+    source: git
+    git_url: https://example.com/repo.git
+    git_ref: main
+    integrity: sha256:0000000000000000000000000000000000000000000000000000000000000000

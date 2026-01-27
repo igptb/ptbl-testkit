@@ -1,0 +1,7 @@
+{
+  "mode": "interactive",
+  "ok": false,
+  "must_contain": [
+    {"rule_id": "SEM_YAML_MULTI_DOCUMENT", "file": "multi.yaml"}
+  ]
+}

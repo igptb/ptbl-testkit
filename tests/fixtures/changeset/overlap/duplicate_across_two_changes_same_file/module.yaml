@@ -1,0 +1,11 @@
+ptbl: '2.6.19'
+module:
+  name: target
+  version: 0.0.1
+  uid: target_module_root
+  entities:
+    target_entity_user:
+      fields:
+        email:
+          type: string
+          required: false

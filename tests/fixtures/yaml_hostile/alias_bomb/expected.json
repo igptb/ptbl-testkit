@@ -1,0 +1,6 @@
+{
+  "rule_id": "YAML_UNSAFE_FEATURE",
+  "tier": "schema",
+  "message_contains": "alias",
+  "description": "Tests that > 100 alias references is rejected as potential alias bomb"
+}

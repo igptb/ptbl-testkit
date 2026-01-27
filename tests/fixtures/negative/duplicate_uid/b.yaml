@@ -1,0 +1,11 @@
+# Module B with DUPLICATE entity UID - should trigger SEM_UID_DUPLICATE
+ptbl: '2.6.19'
+module:
+  name: modb
+  version: 0.0.1
+  uid: modb_module_root
+entities:
+  moda_entity_user:
+    fields:
+      email:
+        type: string

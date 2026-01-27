@@ -1,0 +1,122 @@
+# This file tests alias bomb protection
+# Valid YAML with > 100 alias references
+ptbl: '2.6.19'
+module:
+  name: alias_bomb_test
+  version: 1.0.0
+  uid: alias_bomb_test_module_root
+
+# Define an anchor
+common_field_config: &field_config
+  required: true
+  indexed: true
+
+entities:
+  alias_bomb_test_entity_aliased:
+    description: Entity testing alias bomb protection
+    fields:
+      field001: *field_config
+      field002: *field_config
+      field003: *field_config
+      field004: *field_config
+      field005: *field_config
+      field006: *field_config
+      field007: *field_config
+      field008: *field_config
+      field009: *field_config
+      field010: *field_config
+      field011: *field_config
+      field012: *field_config
+      field013: *field_config
+      field014: *field_config
+      field015: *field_config
+      field016: *field_config
+      field017: *field_config
+      field018: *field_config
+      field019: *field_config
+      field020: *field_config
+      field021: *field_config
+      field022: *field_config
+      field023: *field_config
+      field024: *field_config
+      field025: *field_config
+      field026: *field_config
+      field027: *field_config
+      field028: *field_config
+      field029: *field_config
+      field030: *field_config
+      field031: *field_config
+      field032: *field_config
+      field033: *field_config
+      field034: *field_config
+      field035: *field_config
+      field036: *field_config
+      field037: *field_config
+      field038: *field_config
+      field039: *field_config
+      field040: *field_config
+      field041: *field_config
+      field042: *field_config
+      field043: *field_config
+      field044: *field_config
+      field045: *field_config
+      field046: *field_config
+      field047: *field_config
+      field048: *field_config
+      field049: *field_config
+      field050: *field_config
+      field051: *field_config
+      field052: *field_config
+      field053: *field_config
+      field054: *field_config
+      field055: *field_config
+      field056: *field_config
+      field057: *field_config
+      field058: *field_config
+      field059: *field_config
+      field060: *field_config
+      field061: *field_config
+      field062: *field_config
+      field063: *field_config
+      field064: *field_config
+      field065: *field_config
+      field066: *field_config
+      field067: *field_config
+      field068: *field_config
+      field069: *field_config
+      field070: *field_config
+      field071: *field_config
+      field072: *field_config
+      field073: *field_config
+      field074: *field_config
+      field075: *field_config
+      field076: *field_config
+      field077: *field_config
+      field078: *field_config
+      field079: *field_config
+      field080: *field_config
+      field081: *field_config
+      field082: *field_config
+      field083: *field_config
+      field084: *field_config
+      field085: *field_config
+      field086: *field_config
+      field087: *field_config
+      field088: *field_config
+      field089: *field_config
+      field090: *field_config
+      field091: *field_config
+      field092: *field_config
+      field093: *field_config
+      field094: *field_config
+      field095: *field_config
+      field096: *field_config
+      field097: *field_config
+      field098: *field_config
+      field099: *field_config
+      field100: *field_config
+      field101: *field_config
+      field102: *field_config
+      field103: *field_config
+      field104: *field_config
+      field105: *field_config

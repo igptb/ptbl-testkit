@@ -1,0 +1,5 @@
+ptbl: '2.6.19'
+module:
+  name: minimal
+  version: 0.0.1
+  uid: mod_minimal

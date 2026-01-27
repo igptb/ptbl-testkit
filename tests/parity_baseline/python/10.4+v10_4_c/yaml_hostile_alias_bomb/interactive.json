@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "error": 1,
+    "info": 0,
+    "warning": 0
+  },
+  "diagnostics": [
+    {
+      "file": "module.yaml",
+      "fix_hint": null,
+      "message": "YAML_UNSAFE_FEATURE: Too many alias references (105) - potential alias bomb",
+      "path": "",
+      "rule_id": "YAML_UNSAFE_FEATURE",
+      "severity": "error",
+      "tier": "schema"
+    }
+  ],
+  "fix_actions": [],
+  "max_diagnostics": 200,
+  "mode": "interactive",
+  "ok": false,
+  "ptbl_version_detected": null,
+  "summary": {
+    "by_severity": {
+      "error": 1,
+      "info": 0,
+      "warning": 0
+    },
+    "by_tier": {
+      "policy": 0,
+      "schema": 1,
+      "semantic": 0
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

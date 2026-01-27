@@ -1,0 +1,47 @@
+{
+  "counts": {
+    "error": 2,
+    "info": 0,
+    "warning": 0
+  },
+  "diagnostics": [
+    {
+      "file": "a.yaml",
+      "fix_hint": null,
+      "message": "Duplicate entity UID 'moda_entity_user' (also at: b.yaml:/entities/moda_entity_user)",
+      "path": "/entities/moda_entity_user",
+      "rule_id": "SEM_UID_DUPLICATE",
+      "severity": "error",
+      "tier": "semantic"
+    },
+    {
+      "file": "b.yaml",
+      "fix_hint": null,
+      "message": "Duplicate entity UID 'moda_entity_user' (also at: a.yaml:/entities/moda_entity_user)",
+      "path": "/entities/moda_entity_user",
+      "rule_id": "SEM_UID_DUPLICATE",
+      "severity": "error",
+      "tier": "semantic"
+    }
+  ],
+  "fix_actions": [],
+  "max_diagnostics": 200,
+  "mode": "interactive",
+  "ok": false,
+  "ptbl_version_detected": "2.6.19",
+  "summary": {
+    "by_severity": {
+      "error": 2,
+      "info": 0,
+      "warning": 0
+    },
+    "by_tier": {
+      "policy": 0,
+      "schema": 0,
+      "semantic": 2
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

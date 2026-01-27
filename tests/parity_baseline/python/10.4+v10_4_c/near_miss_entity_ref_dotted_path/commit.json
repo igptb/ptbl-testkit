@@ -1,0 +1,47 @@
+{
+  "counts": {
+    "error": 1,
+    "info": 0,
+    "warning": 1
+  },
+  "diagnostics": [
+    {
+      "file": "module.yaml",
+      "fix_hint": null,
+      "message": "{'type': 'reference', 'entity_ref': 'users.customer'} is not valid under any of the given schemas",
+      "path": "/entities/test_entity_order/fields/customer/type",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "module.yaml",
+      "fix_hint": null,
+      "message": "Module has no owner or owners defined",
+      "path": "/module",
+      "rule_id": "POL_MISSING_OWNER",
+      "severity": "warning",
+      "tier": "policy"
+    }
+  ],
+  "fix_actions": [],
+  "max_diagnostics": 200,
+  "mode": "commit",
+  "ok": false,
+  "ptbl_version_detected": "2.6.19",
+  "summary": {
+    "by_severity": {
+      "error": 1,
+      "info": 0,
+      "warning": 1
+    },
+    "by_tier": {
+      "policy": 1,
+      "schema": 1,
+      "semantic": 0
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

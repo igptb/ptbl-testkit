@@ -1,0 +1,13 @@
+{
+  "mode": "commit",
+  "must_contain": [
+    {
+      "file": "ptbl.lock.yaml",
+      "path": "/resolved/auth",
+      "rule_id": "POL_GIT_UNPINNED",
+      "severity": "error",
+      "tier": "policy"
+    }
+  ],
+  "ok": false
+}

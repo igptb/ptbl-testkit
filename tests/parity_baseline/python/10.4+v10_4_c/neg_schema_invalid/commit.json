@@ -1,0 +1,78 @@
+{
+  "counts": {
+    "error": 3,
+    "info": 0,
+    "warning": 1
+  },
+  "diagnostics": [
+    {
+      "file": "bad.yaml",
+      "fix_hint": null,
+      "message": "'mod_minimal' does not match '^[a-z][a-z0-9]*_module_root$'",
+      "path": "/module/uid",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "bad.yaml",
+      "fix_hint": null,
+      "message": "'mod_minimal' is too short",
+      "path": "/module/uid",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "bad.yaml",
+      "fix_hint": {
+        "action": "replace",
+        "new": "minimal_module_root",
+        "old": "mod_minimal",
+        "path": "/module/uid"
+      },
+      "message": "Module name 'minimal' doesn't match UID 'mod_minimal' (expected 'minimal_module_root')",
+      "path": "/module/uid",
+      "rule_id": "SEM_MODULE_NAME_UID_CONSISTENCY",
+      "severity": "error",
+      "tier": "semantic"
+    },
+    {
+      "file": "bad.yaml",
+      "fix_hint": null,
+      "message": "Module has no owner or owners defined",
+      "path": "/module",
+      "rule_id": "POL_MISSING_OWNER",
+      "severity": "warning",
+      "tier": "policy"
+    }
+  ],
+  "fix_actions": [
+    {
+      "file": "bad.yaml",
+      "json_pointer": "/module/uid",
+      "op": "replace",
+      "reason_rule_id": "SEM_MODULE_NAME_UID_CONSISTENCY",
+      "value": "minimal_module_root"
+    }
+  ],
+  "max_diagnostics": 200,
+  "mode": "commit",
+  "ok": false,
+  "ptbl_version_detected": "2.6.19",
+  "summary": {
+    "by_severity": {
+      "error": 3,
+      "info": 0,
+      "warning": 1
+    },
+    "by_tier": {
+      "policy": 1,
+      "schema": 2,
+      "semantic": 1
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

@@ -1,0 +1,16 @@
+{
+  "expected_errors": [
+    "SCHEMA_INVALID"
+  ],
+  "tier": "schema",
+  "description": "Entity ref uses dotted path instead of snake_case UID",
+  "must_contain": [
+    {
+      "rule_id": "SCHEMA_INVALID",
+      "tier": "schema",
+      "severity": "error",
+      "file": "module.yaml",
+      "path": "/entities/test_entity_order/fields/customer/type"
+    }
+  ]
+}

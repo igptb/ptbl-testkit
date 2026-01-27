@@ -1,0 +1,8 @@
+{
+  "mode": "interactive",
+  "ok": false,
+  "must_contain": [
+    {"rule_id": "SEM_UID_DUPLICATE", "file": "a.yaml", "path": "/entities/moda_entity_user"},
+    {"rule_id": "SEM_UID_DUPLICATE", "file": "b.yaml", "path": "/entities/moda_entity_user"}
+  ]
+}

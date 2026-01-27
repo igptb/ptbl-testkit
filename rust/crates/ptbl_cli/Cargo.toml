@@ -1,0 +1,12 @@
+[package]
+name = "ptbl_cli"
+version = "0.0.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[[bin]]
+name = "ptbl"
+path = "src/main.rs"
+
+[dependencies]
+ptbl_validator = { path = "../ptbl_validator" }

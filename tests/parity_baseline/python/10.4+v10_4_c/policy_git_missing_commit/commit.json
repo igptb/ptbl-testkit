@@ -1,0 +1,92 @@
+{
+  "counts": {
+    "error": 6,
+    "info": 0,
+    "warning": 1
+  },
+  "diagnostics": [
+    {
+      "file": "ptbl.lock.yaml",
+      "fix_hint": null,
+      "message": "'manifest' is a required property",
+      "path": "/app",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "ptbl.lock.yaml",
+      "fix_hint": null,
+      "message": "'name' is a required property",
+      "path": "/app",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "ptbl.lock.yaml",
+      "fix_hint": null,
+      "message": "'version' is a required property",
+      "path": "/app",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "ptbl.lock.yaml",
+      "fix_hint": null,
+      "message": "Additional properties are not allowed ('uid' was unexpected)",
+      "path": "/app",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "ptbl.lock.yaml",
+      "fix_hint": null,
+      "message": "{'source': 'git', 'git_url': 'https://example.com/repo.git', 'git_ref': 'main', 'integrity': 'sha256:0000000000000000000000000000000000000000000000000000000000000000'} is not valid under any of the given schemas",
+      "path": "/resolved/auth",
+      "rule_id": "SCHEMA_INVALID",
+      "severity": "error",
+      "tier": "schema"
+    },
+    {
+      "file": "ptbl.lock.yaml",
+      "fix_hint": null,
+      "message": "Git dependency 'auth' missing git_commit SHA",
+      "path": "/resolved/auth",
+      "rule_id": "POL_GIT_UNPINNED",
+      "severity": "error",
+      "tier": "policy"
+    },
+    {
+      "file": "ptbl.lock.yaml",
+      "fix_hint": null,
+      "message": "App has no owner or owners defined",
+      "path": "/app",
+      "rule_id": "POL_MISSING_OWNER",
+      "severity": "warning",
+      "tier": "policy"
+    }
+  ],
+  "fix_actions": [],
+  "max_diagnostics": 200,
+  "mode": "commit",
+  "ok": false,
+  "ptbl_version_detected": null,
+  "summary": {
+    "by_severity": {
+      "error": 6,
+      "info": 0,
+      "warning": 1
+    },
+    "by_tier": {
+      "policy": 2,
+      "schema": 5,
+      "semantic": 0
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

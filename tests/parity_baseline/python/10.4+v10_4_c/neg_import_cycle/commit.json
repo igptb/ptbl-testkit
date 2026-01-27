@@ -1,0 +1,56 @@
+{
+  "counts": {
+    "error": 1,
+    "info": 0,
+    "warning": 2
+  },
+  "diagnostics": [
+    {
+      "file": "a.yaml",
+      "fix_hint": null,
+      "message": "Import cycle detected: a.yaml \u2192 b.yaml \u2192 a.yaml",
+      "path": "/imports",
+      "rule_id": "SEM_IMPORT_CYCLE",
+      "severity": "error",
+      "tier": "semantic"
+    },
+    {
+      "file": "a.yaml",
+      "fix_hint": null,
+      "message": "Module has no owner or owners defined",
+      "path": "/module",
+      "rule_id": "POL_MISSING_OWNER",
+      "severity": "warning",
+      "tier": "policy"
+    },
+    {
+      "file": "b.yaml",
+      "fix_hint": null,
+      "message": "Module has no owner or owners defined",
+      "path": "/module",
+      "rule_id": "POL_MISSING_OWNER",
+      "severity": "warning",
+      "tier": "policy"
+    }
+  ],
+  "fix_actions": [],
+  "max_diagnostics": 200,
+  "mode": "commit",
+  "ok": false,
+  "ptbl_version_detected": "2.6.19",
+  "summary": {
+    "by_severity": {
+      "error": 1,
+      "info": 0,
+      "warning": 2
+    },
+    "by_tier": {
+      "policy": 2,
+      "schema": 0,
+      "semantic": 1
+    }
+  },
+  "truncated": false,
+  "validator_version": "10.4+v10_4_c",
+  "workspace_fingerprint": "__FINGERPRINT__"
+}

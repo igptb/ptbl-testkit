@@ -1,0 +1,12 @@
+{
+  "mode": "interactive",
+  "must_contain": [
+    {
+      "rule_id": "SEM_ENUM_REF_NOT_FOUND",
+      "tier": "semantic",
+      "severity": "error",
+      "file": "module.yaml",
+      "path": "/entities/enum_missing_entity_item/fields/status/type/enum_ref"
+    }
+  ]
+}

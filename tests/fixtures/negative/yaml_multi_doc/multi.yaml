@@ -1,0 +1,11 @@
+ptbl: '2.6.19'
+module:
+  name: minimal
+  version: 0.0.1
+  uid: minimal_module_root
+---
+ptbl: '2.6.19'
+module:
+  name: minimal2
+  version: 0.0.1
+  uid: minimal2_module_root
