@@ -1,11 +1,15 @@
 # <TITLE>
 
-Last updated: 2026-01-24
+Last updated: <YYYY-MM-DD>
 
-Scope: <what this doc covers, and what it does NOT cover>
+Scope:
+- <What this doc covers>
+- <What this doc does NOT cover>
 
-## If you only read one thing
-- <2 to 8 bullets with the highest-signal facts / rules / contracts>
+If you only read one thing, read this section:
+- <The single most important takeaway / how to use this doc>
 
-## Update log
-- 2026-01-24: Created skeleton.
+---
+
+## Update log (append-only)
+- <YYYY-MM-DD>: Created.

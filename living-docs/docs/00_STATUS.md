@@ -1,6 +1,6 @@
 # Status
 
-Last updated: 2026-01-26
+Last updated: 2026-01-27
 
 Scope: Always-current snapshot of TestKit and validator progress, plus the state of the living docs.
 
@@ -11,6 +11,13 @@ Scope: Always-current snapshot of TestKit and validator progress, plus the state
 - Schema canon: `docs/20_SCHEMA_PACK.md` is the reference for the v2.6.19 schema pack.
 
 ## Update log
+- 2026-01-27: CI green for rust + python parity smoke.
+- 2026-01-27: Rust scaffold hardening: cargo fmt --check and cargo clippy -D warnings are green.
+- 2026-01-27: Rust migration Phase 1 underway (parity gates green; Rust workspace builds).
+- 2026-01-27: Rust migration Task 0.2 completed; added rust/README.md with parity rules and manual compare steps until the parity harness is implemented.
+- 2026-01-27: Rust migration Phase 0 started; Task 0.1 frozen Python parity baseline outputs (10 curated snapshots) under tests/parity_baseline/.
+- 2026-01-27: Started Rust migration execution using docs/33_RUST_MIGRATION_TASKS.md. Python remains the oracle until Rust cutover; TestKit mini-batch D resumes after cutover.
+- 2026-01-26: Updated Phase 4 batch tracking to reflect validator progress through v10_4_c (mini-batches A to C complete; 20 ambiguity pairs total).
 - 2026-01-26: Added docs/42_DECISIONS.md (append-only decision log template + initial entries).
 - 2026-01-26: Added docs/41_DEV_WORKFLOW.md (batch discipline and no-regression rules).
 - 2026-01-26: Added docs/40_GITHUB_SETUP.md (GitHub guardrails and CI expectations).
@@ -65,21 +72,31 @@ These are not merge-blocking until the golden suite reaches 20.
 - [ ] 4C: +20 fixtures (total 60)
 
 ### Task 5: Ambiguity hunts evidence
+Target: reach 25 ambiguity pairs (Task 5A) before we do any evidence-quality improvements (Mini-batch F).
 - [ ] 5A: Add 10 ambiguity pairs (reach 25)
-- [ ] 5B: Add intent fingerprint evidence report (test-only)
+  - [x] Mini-batch A (v10_4_a): Scaffold intent fingerprint evidence pipeline + raise budget to 25
+  - [x] Mini-batch B (v10_4_b): +3 ambiguity pairs (total 17)
+  - [x] Mini-batch C (v10_4_c): +3 ambiguity pairs (total 20)
+  - [ ] Mini-batch D (v10_4_d): +3 ambiguity pairs (total 23)
+  - [ ] Mini-batch E (v10_4_e): +2 ambiguity pairs (total 25)
+  - [ ] Mini-batch F (v10_4): Improve fingerprint normalization rules + final release version (no suffix)
+- [x] 5B: Add intent fingerprint evidence report (test-only)
 - [ ] 5C: Add 5 more ambiguity pairs (reach 30)
+- Latest validator pack: ptbl_phase2_validator_v10_4_c.zip
 
 ### Task 6: Real LLM failure pipeline
 - [ ] 6A: Skeleton loader and structure
 - [ ] 6B: Add 10 real failures
 - [ ] 6C: Add 20 more real failures
 
-## Next batch to run (per your latest instruction)
-- Task 5A + 5B together (reach 25 pairs and add the intent fingerprint evidence).
+## Next batch to run
+- Current focus: Rust migration execution (see docs/33_RUST_MIGRATION_TASKS.md).
+- Rust migration in progress: parity harness + curated parity gates are green; Rust workspace scaffold builds. Next: Phase 1 hardening (fmt, clippy) and first real Rust parity tasks. Python validator pack remains v10_4_c. fmt + clippy are green.
 
 ## Living docs status
 
 ### Completed
+- `docs/33_RUST_MIGRATION_TASKS.md`
 - `docs/42_DECISIONS.md`
 - `docs/41_DEV_WORKFLOW.md`
 - `docs/40_GITHUB_SETUP.md`

@@ -1,6 +1,6 @@
 # Living Docs Task List
 
-Last updated: 2026-01-26
+Last updated: 2026-01-27
 
 Scope: Track creation and conversion of the living Markdown docs. This list is the single checklist to tick off per doc. It does NOT contain the doc content itself.
 
@@ -11,6 +11,8 @@ Scope: Track creation and conversion of the living Markdown docs. This list is t
 - Prefer a short front door doc that links outward over a giant all-in-one file.
 
 ## Update log
+- 2026-01-27: Added docs/33_RUST_MIGRATION_TASKS.md (Rust migration execution checklist) and marked it complete.
+- 2026-01-26: Updated docs/00_STATUS.md and docs/02_TESTKIT_EXECUTION_ORDER.md to reflect validator mini-batch progress through v10_4_c.
 - 2026-01-26: Added docs/42_DECISIONS.md and marked it complete.
 - 2026-01-26: Added docs/41_DEV_WORKFLOW.md (batch discipline and no-regression rules) and marked it complete.
 - 2026-01-26: Added docs/40_GITHUB_SETUP.md and marked it complete.
@@ -70,6 +72,7 @@ Scope: Track creation and conversion of the living Markdown docs. This list is t
 - [x] `docs/30_ARCHITECTURE.md`
 - [x] `docs/31_DOGFOODING_PLAN.md` (exists)
 - [x] `docs/32_RUST_MIGRATION_PLAN.md`
+- [x] `docs/33_RUST_MIGRATION_TASKS.md`
 - [x] `docs/40_GITHUB_SETUP.md`
 - [x] `docs/41_DEV_WORKFLOW.md`
 - [x] `docs/42_DECISIONS.md`
