@@ -32,27 +32,27 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
+
+          # Prefer CI or base deps. Avoid dev deps in CI unless you explicitly want them.
           if [ -f requirements-ci.txt ]; then
             python -m pip install -r requirements-ci.txt
-          elif [ -f requirements-dev.txt ]; then
-            python -m pip install -r requirements-dev.txt
           elif [ -f requirements.txt ]; then
             python -m pip install -r requirements.txt
           elif [ -f pyproject.toml ]; then
-            # Prefer editable install with dev extras if they exist.
             python -m pip install -e ".[dev]" || python -m pip install -e .
-          else
-            python -m pip install -e .
           fi
+
+          # Always ensure the test runner (and common core deps) exist in CI.
+          python -m pip install pytest pyyaml jsonschema
 
       - name: Run parity harness smoke
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f tests/test_parity_smoke.py ]; then
-            python -m pytest -q tests/test_parity_smoke.py
-          elif [ -f tests/test_parity_harness_smoke.py ]; then
+          if [ -f tests/test_parity_harness_smoke.py ]; then
             python -m pytest -q tests/test_parity_harness_smoke.py
+          elif [ -f tests/test_parity_smoke.py ]; then
+            python -m pytest -q tests/test_parity_smoke.py
           else
             # Fallback: run any test that looks like the parity smoke subset.
             python -m pytest -q -k "parity and smoke"
