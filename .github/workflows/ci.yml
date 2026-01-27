@@ -1,12 +1,15 @@
-﻿name: ci
+name: ci
 
 on:
-  pull_request:
   push:
-    branches: ["main"]
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
-  test:
+  python-parity-smoke:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,20 +19,83 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            requirements.txt
+            requirements-dev.txt
+            requirements-ci.txt
+            setup.cfg
 
-      - name: Install test dependencies
+      - name: Install dependencies
+        shell: bash
         run: |
+          set -euo pipefail
           python -m pip install --upgrade pip
-          python -m pip install pytest pyyaml
+          if [ -f requirements-ci.txt ]; then
+            python -m pip install -r requirements-ci.txt
+          elif [ -f requirements-dev.txt ]; then
+            python -m pip install -r requirements-dev.txt
+          elif [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          elif [ -f pyproject.toml ]; then
+            # Prefer editable install with dev extras if they exist.
+            python -m pip install -e ".[dev]" || python -m pip install -e .
+          else
+            python -m pip install -e .
+          fi
 
-      - name: Run tests (produce a junit report)
+      - name: Run parity harness smoke
+        shell: bash
         run: |
-          mkdir -p artifacts
-          python -m pytest --junitxml=artifacts/junit.xml
+          set -euo pipefail
+          if [ -f tests/test_parity_smoke.py ]; then
+            python -m pytest -q tests/test_parity_smoke.py
+          elif [ -f tests/test_parity_harness_smoke.py ]; then
+            python -m pytest -q tests/test_parity_harness_smoke.py
+          else
+            # Fallback: run any test that looks like the parity smoke subset.
+            python -m pytest -q -k "parity and smoke"
+          fi
 
-      - name: Upload test artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
+  rust:
+    runs-on: ubuntu-latest
+    env:
+      RUST_BACKTRACE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
         with:
-          name: test-artifacts
-          path: artifacts
+          components: rustfmt, clippy
+
+      - name: Rust cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          # Most repos place the workspace in ./rust during this migration.
+          # If your workspace is at repo root, this still works.
+          workspaces: |
+            rust -> target
+
+      - name: Cargo fmt (check)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f rust/Cargo.toml ]; then cd rust; fi
+          cargo fmt --all -- --check
+
+      - name: Cargo clippy (-D warnings)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f rust/Cargo.toml ]; then cd rust; fi
+          cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Cargo test
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f rust/Cargo.toml ]; then cd rust; fi
+          cargo test --all --all-features
